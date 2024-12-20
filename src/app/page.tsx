@@ -33,13 +33,13 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-8 items-center">
             <div className="space-y-4">
               <p className="text-lg">
-                I'm a passionate software engineer with expertise in building modern web applications.
+                I&apos;m a passionate software engineer with expertise in building modern web applications.
                 With 5+ years of experience in full-stack development, I specialize in creating
                 scalable and user-friendly solutions.
               </p>
               <p className="text-lg">
                 My tech stack includes React, Node.js, TypeScript, and various cloud technologies.
-                I'm always eager to learn new technologies and solve complex problems.
+                I&apos;m always eager to learn new technologies and solve complex problems.
               </p>
             </div>
             <div className="relative h-80 w-full">
