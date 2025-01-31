@@ -20,15 +20,13 @@ export default function Navbar() {
     }`}>
       <div className="navbar max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="navbar-start">
-          <a href="#" className="text-xl font-bold text-primary">JD</a>
+          <a href="#" className="text-xl font-bold text-primary">LKB</a>
         </div>
         
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1 gap-2">
             <li><a href="#about" className="nav-link">About</a></li>
-            <li><a href="#projects" className="nav-link">Projects</a></li>
             <li><a href="#skills" className="nav-link">Skills</a></li>
-            <li><a href="#contact" className="nav-link">Contact</a></li>
           </ul>
         </div>
 
