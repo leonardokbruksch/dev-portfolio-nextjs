@@ -30,6 +30,22 @@ export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
   onCtaClick?: () => void;
 }
 
+const navItemClasses = (isActive?: boolean) =>
+  cn(
+    "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium cursor-pointer transition-colors",
+    "text-foreground/80 hover:text-foreground",
+    "hover:underline hover:underline-offset-4 hover:decoration-1",
+    isActive && "text-foreground"
+  );
+
+const mobileItemClasses = (isActive?: boolean) =>
+  cn(
+    "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium cursor-pointer transition-colors",
+    "text-foreground/80 hover:text-foreground",
+    "hover:underline hover:underline-offset-4 hover:decoration-1",
+    isActive && "text-foreground"
+  );
+
 export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
   (
     {
@@ -124,13 +140,10 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                       {navigationLinks.map((link, index) => (
                         <NavigationMenuItem key={index} className="w-full">
                           <button
+                            data-active={link.active ? 'true' : 'false'}
+                            aria-current={link.active ? 'page' : undefined}
                             onClick={(e) => handleNavClick(e, link.href)}
-                            className={cn(
-                              "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
-                              link.active
-                                ? "bg-accent text-accent-foreground"
-                                : "text-foreground/80"
-                            )}
+                            className={mobileItemClasses(link.active)}
                           >
                             {link.label}
                           </button>
@@ -160,13 +173,10 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index}>
                       <button
+                        data-active={link.active ? 'true' : 'false'}
+                        aria-current={link.active ? 'page' : undefined}
                         onClick={(e) => handleNavClick(e, link.href)}
-                        className={cn(
-                          "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
-                          link.active
-                            ? "bg-accent text-accent-foreground"
-                            : "text-foreground/80 hover:text-foreground"
-                        )}
+                        className={navItemClasses(link.active)}
                       >
                         {link.label}
                       </button>
