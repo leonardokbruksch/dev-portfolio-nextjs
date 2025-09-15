@@ -82,6 +82,9 @@
   --bubble-4: 200,50,50;
   --bubble-5: 180,180,50;
   --bubble-6: 140,100,255;
+  --brand-name: oklch(0.86 0.14 220);
+  --brand-dot: oklch(1 0 0);
+  --brand-underscore: oklch(0.73 0.20 300);
 }
 
 .dark {
@@ -100,7 +103,7 @@
   --accent: oklch(0.279 0.041 260.031);
   --accent-foreground: oklch(0.984 0.003 247.858);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 60%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.551 0.027 264.364);
   --chart-1: oklch(0.488 0.243 264.376);
@@ -114,7 +117,7 @@
   --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
   --sidebar-accent: oklch(0.279 0.041 260.031);
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-border: oklch(1 0 0 / 60%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
   --bubble-1: 18,113,255;
   --bubble-2: 221,74,255;
@@ -122,6 +125,9 @@
   --bubble-4: 200,50,50;
   --bubble-5: 180,180,50;
   --bubble-6: 140,100,255;
+  --brand-name: oklch(0.86 0.14 220);
+  --brand-dot: oklch(1 0 0 / 90%);
+  --brand-underscore: oklch(0.73 0.20 300);
 }
 
 @layer base {
