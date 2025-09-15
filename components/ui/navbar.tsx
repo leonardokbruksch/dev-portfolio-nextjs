@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/popover';
 import { cn } from "@/lib/utils";
 import { HamburgerIcon } from './hamburger';
+import { ThemeToggle } from './theme-toggle';
 
 export interface Navbar01NavLink {
   href: string;
@@ -86,7 +87,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
         )}
         {...props}
       >
-        <div className="flex h-12 items-center justify-between gap-4">
+        <div className="relative flex h-12 items-center w-full">
           <div className="flex items-center gap-2">
             {isMobile && (
               <Popover>
@@ -122,42 +123,46 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                 </PopoverContent>
               </Popover>
             )}
-            <div className="flex items-center gap-6">
-              <button
-                onClick={(e) => e.preventDefault()}
-                className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
-              >
-                <span className="font-bold text-xl tracking-tight leading-none">
-                  <span className="text-[var(--brand-name)]">leobruksch</span>
-                  <span className="mx-1 text-[var(--brand-dot)]">.</span>
-                  <span className="ml-0.2 text-[var(--brand-underscore)]">_</span>
-                </span>
-              </button>
-              {!isMobile && (
-                  <NavigationMenu className="flex">
-                    <NavigationMenuList className="gap-1">
-                      {navigationLinks.map((link, index) => (
-                        <NavigationMenuItem key={index}>
-                          <button
-                            onClick={(e) => e.preventDefault()}
-                            className={cn(
-                              "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
-                              link.active
-                                ? "bg-accent text-accent-foreground"
-                                : "text-foreground/80 hover:text-foreground"
-                            )}
-                          >
-                            {link.label}
-                          </button>
-                        </NavigationMenuItem>
-                      ))}
-                    </NavigationMenuList>
-                  </NavigationMenu>
-              )}
-            </div>
+            <button
+              onClick={(e) => e.preventDefault()}
+              className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
+            >
+              <span className="font-bold text-xl tracking-tight leading-none">
+                <span className="text-[var(--brand-name)]">leobruksch</span>
+                <span className="mx-1 text-[var(--brand-dot)]">.</span>
+                <span className="ml-0.5 text-[var(--brand-underscore)]">_</span>
+              </span>
+            </button>
           </div>
-          <div className="flex items-center gap-3">
+
+          {!isMobile && (
+            <div className="absolute left-1/2 -translate-x-1/2">
+              <NavigationMenu>
+                <NavigationMenuList className="flex gap-1">
+                  {navigationLinks.map((link, index) => (
+                    <NavigationMenuItem key={index}>
+                      <button
+                        onClick={(e) => e.preventDefault()}
+                        className={cn(
+                          "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
+                          link.active
+                            ? "bg-accent text-accent-foreground"
+                            : "text-foreground/80 hover:text-foreground"
+                        )}
+                      >
+                        {link.label}
+                      </button>
+                    </NavigationMenuItem>
+                  ))}
+                </NavigationMenuList>
+              </NavigationMenu>
+            </div>
+          )}
+
+          <div className="ml-auto flex items-center gap-3">
+            <ThemeToggle />
             <Button
+              variant="outline"
               size="sm"
               className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
               onClick={(e) => {
