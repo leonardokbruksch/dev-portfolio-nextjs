@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import Image from "next/image";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
           <li className="tracking-[-.01em]">
             Save and see your changes instantly.
           </li>
+          <li>Toggle Theme <ThemeToggle/></li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
