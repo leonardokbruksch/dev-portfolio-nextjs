@@ -1,6 +1,7 @@
 import { Navbar01 } from "@/components/ui/navbar";
 import { ExpertiseSection } from "@/components/ui/sections/expertise";
 import { Hero } from "@/components/ui/sections/hero";
+import { ExperienceSection } from "@/components/ui/sections/experience";
 
 export default function Home() {
   return (
@@ -18,6 +19,7 @@ export default function Home() {
         <main className="flex w-full flex-col gap-12 row-start-2 items-center sm:items-stretch">
           <Hero />
           <ExpertiseSection />
+          <ExperienceSection />
         </main>
       </div>
     </>
