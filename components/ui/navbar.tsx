@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { Button } from '@/components/ui/button';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -24,25 +24,18 @@ export interface Navbar01NavLink {
 }
 
 export interface Navbar01Props extends React.HTMLAttributes<HTMLElement> {
-  navigationLinks?: Navbar01NavLink[];
-  ctaText?: string;
-  ctaHref?: string;
+  navigationLinks: Navbar01NavLink[];
+  ctaText: string;
+  ctaHref: string;
   onCtaClick?: () => void;
 }
-
-const defaultNavigationLinks: Navbar01NavLink[] = [
-  { href: '#', label: 'Home', active: true },
-  { href: '#features', label: 'Features' },
-  { href: '#pricing', label: 'Pricing' },
-  { href: '#about', label: 'About' },
-];
 
 export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
   (
     {
       className,
-      navigationLinks = defaultNavigationLinks,
-      ctaText = 'Get Started',
+      navigationLinks,
+      ctaText,
       ctaHref = '#get-started',
       onCtaClick,
       ...props
@@ -69,14 +62,39 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
       };
     }, []);
 
-    const combinedRef = React.useCallback((node: HTMLElement | null) => {
+    const combinedRef = useCallback((node: HTMLElement | null) => {
       containerRef.current = node;
       if (typeof ref === 'function') {
         ref(node);
       } else if (ref) {
-        ref.current = node;
+        (ref as React.MutableRefObject<HTMLElement | null>).current = node;
       }
     }, [ref]);
+
+    const scrollToHash = useCallback((hash: string) => {
+      if (!hash || hash[0] !== '#') return;
+      const id = hash.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      const headerH = containerRef.current?.getBoundingClientRect().height ?? 0;
+      const y = target.getBoundingClientRect().top + window.scrollY - (headerH + 16);
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) {
+        window.scrollTo(0, y);
+      } else {
+        window.scrollTo({ top: y, behavior: 'smooth' });
+      }
+    }, []);
+
+    const handleNavClick = useCallback((e: React.MouseEvent, href?: string) => {
+      e.preventDefault();
+      if (!href) return;
+      if (href.startsWith('#')) {
+        scrollToHash(href);
+      } else {
+        window.location.href = href;
+      }
+    }, [scrollToHash]);
 
     return (
       <header
@@ -106,7 +124,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                       {navigationLinks.map((link, index) => (
                         <NavigationMenuItem key={index} className="w-full">
                           <button
-                            onClick={(e) => e.preventDefault()}
+                            onClick={(e) => handleNavClick(e, link.href)}
                             className={cn(
                               "flex w-full items-center rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground cursor-pointer no-underline",
                               link.active
@@ -124,7 +142,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
               </Popover>
             )}
             <button
-              onClick={(e) => e.preventDefault()}
+              onClick={(e) => handleNavClick(e, '#hero')}
               className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
             >
               <span className="font-bold text-xl tracking-tight leading-none">
@@ -142,7 +160,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
                   {navigationLinks.map((link, index) => (
                     <NavigationMenuItem key={index}>
                       <button
-                        onClick={(e) => e.preventDefault()}
+                        onClick={(e) => handleNavClick(e, link.href)}
                         className={cn(
                           "group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 cursor-pointer no-underline",
                           link.active
@@ -166,8 +184,13 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
               size="sm"
               className="text-sm font-medium px-4 h-9 rounded-md shadow-sm"
               onClick={(e) => {
-                e.preventDefault();
-                if (onCtaClick) onCtaClick();
+                if (ctaHref?.startsWith('#')) {
+                  handleNavClick(e, ctaHref);
+                } else {
+                  e.preventDefault();
+                  if (onCtaClick) onCtaClick();
+                  else if (ctaHref) window.location.href = ctaHref;
+                }
               }}
             >
               {ctaText}
