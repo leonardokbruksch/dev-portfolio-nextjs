@@ -10,7 +10,6 @@ export default function Home() {
         navigationLinks={[
           { href: "/about", label: "About" },
           { href: "/experience", label: "Experience" },
-          { href: "/projects", label: "Projects", active: true },
         ]}
         ctaText="Contact"
         ctaHref="/contact"
