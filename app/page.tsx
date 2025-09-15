@@ -1,5 +1,6 @@
 import { Navbar01 } from "@/components/ui/navbar";
 import { ExpertiseSection } from "@/components/ui/sections/expertise";
+import { Hero } from "@/components/ui/sections/hero";
 
 export default function Home() {
   return (
@@ -15,7 +16,7 @@ export default function Home() {
       />
       <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
         <main className="flex w-full flex-col gap-12 row-start-2 items-center sm:items-stretch">
-          <div className="text-center sm:text-center text-foreground/80">Leo can code.</div>
+          <Hero />
           <ExpertiseSection />
         </main>
       </div>

@@ -76,12 +76,12 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
-  --bubble-1: 18,113,255;
-  --bubble-2: 221,74,255;
-  --bubble-3: 0,220,255;
-  --bubble-4: 200,50,50;
-  --bubble-5: 180,180,50;
-  --bubble-6: 140,100,255;
+  --bubble-1: 18, 113, 255;
+  --bubble-2: 221, 74, 255;
+  --bubble-3: 0, 220, 255;
+  --bubble-4: 200, 50, 50;
+  --bubble-5: 180, 180, 50;
+  --bubble-6: 140, 100, 255;
   --brand-name: oklch(0.86 0.14 220);
   --brand-dot: oklch(1 0 0);
   --brand-underscore: oklch(0.73 0.20 300);
@@ -119,12 +119,12 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 60%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
-  --bubble-1: 18,113,255;
-  --bubble-2: 221,74,255;
-  --bubble-3: 0,220,255;
-  --bubble-4: 200,50,50;
-  --bubble-5: 180,180,50;
-  --bubble-6: 140,100,255;
+  --bubble-1: 18, 113, 255;
+  --bubble-2: 221, 74, 255;
+  --bubble-3: 0, 220, 255;
+  --bubble-4: 200, 50, 50;
+  --bubble-5: 180, 180, 50;
+  --bubble-6: 140, 100, 255;
   --brand-name: oklch(0.86 0.14 220);
   --brand-dot: oklch(1 0 0 / 90%);
   --brand-underscore: oklch(0.73 0.20 300);
@@ -134,6 +134,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
