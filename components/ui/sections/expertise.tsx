@@ -4,6 +4,13 @@ import * as React from 'react';
 import { Monitor, Atom, Smartphone } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ExpertiseItem } from './expertise-item';
+import { Typewriter } from 'react-simple-typewriter';
+import { JetBrains_Mono } from "next/font/google";
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+});
 
 export function ExpertiseSection({ className }: { className?: string }) {
     return (
@@ -20,6 +27,28 @@ export function ExpertiseSection({ className }: { className?: string }) {
                 <span className="mx-1 text-[var(--brand-dot)]">.</span>
                 <span className="text-[var(--brand-underscore)]">_</span>
             </h2>
+
+            <h1
+                className={`text-center text-1xl sm:text-2xl md:text-3xl font-bold text-foreground leading-tight ${jetbrainsMono.className}`}
+            >
+                Leo can code{" "}
+                <Typewriter
+                    words={[
+                        "Next.js web apps.",
+                        "React Native mobile apps.",
+                        "Event-driven microservices.",
+                        "AWS cloud infrastructure.",
+                        "REST APIs.",
+                        "IoT integrations.",
+                    ]}
+                    loop={0}
+                    cursor
+                    cursorStyle="|"
+                    typeSpeed={50}
+                    deleteSpeed={60}
+                    delaySpeed={1200}
+                />
+            </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch [grid-auto-rows:1fr] gap-5 sm:gap-6">
                 <ExpertiseItem

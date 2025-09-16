@@ -1,17 +1,16 @@
 "use client";
 
-import { Linkedin, FileText } from "lucide-react";
+import { Linkedin, FileText, Hammer } from "lucide-react";
 
 export function Footer() {
     return (
         <footer className="w-full mt-20">
             <div className="mx-auto max-w-5xl px-6 py-16 text-center space-y-10">
-                {/* Headline */}
-                <h2 className="text-xl sm:text-2xl font-semibold text-foreground/80">
+                <h2 className="flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold text-foreground/80">
                     Let’s build something great together!
+                    <Hammer className="w-6 h-6 text-foreground/70" />
                 </h2>
 
-                {/* Big Email */}
                 <a
                     href="mailto:leonardo.bruksch@gmail.com"
                     className="block text-2xl sm:text-3xl font-bold underline underline-offset-4 decoration-purple-500 hover:decoration-purple-400 transition-colors"
@@ -19,7 +18,6 @@ export function Footer() {
                     leonardo.bruksch@gmail.com
                 </a>
 
-                {/* Social Links */}
                 <div className="flex items-center justify-center gap-8 text-foreground/70">
                     <a
                         href="https://www.linkedin.com/in/leonardo-bruksch-65246198/"
@@ -41,7 +39,6 @@ export function Footer() {
                 </div>
             </div>
 
-            {/* Copyright (no border now) */}
             <div className="py-6 text-center text-xs text-foreground/50">
                 © {new Date().getFullYear()} Leonardo Krummenauer Bruksch. Built with Next.js, Tailwind, and shadcn/ui.
             </div>
