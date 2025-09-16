@@ -2,22 +2,14 @@
 
 import { ScrollCue } from '../scroll-cue';
 import { TerminalIntro } from '@/components/ui/terminal-intro';
-import { Linkedin, FileText } from 'lucide-react';
-import { RotatingComputer } from '../models/computer';
+import { Linkedin, FileText } from "lucide-react";
 
 export function Hero() {
     return (
         <section className="relative flex h-[60vh] min-h-[420px] w-full items-center">
             <TerminalIntro />
-
-            <div className="pointer-events-none absolute inset-x-0 -top-4 sm:-top-6 flex justify-center">
-                <RotatingComputer className="h-48 w-48 sm:h-64 sm:w-64 md:h-80 md:w-80 lg:h-96 lg:w-96" />
-
-
-            </div>
-
-            <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center pt-16 sm:pt-20 md:pt-24">
-                <h1 className="relative z-10 flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
+            <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
+                <h1 className="flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
                     <span className="text-[var(--brand-name)]">Leo</span>
                     <span
@@ -55,11 +47,9 @@ export function Hero() {
                     </a>
                 </div>
             </div>
-
             <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center">
                 <ScrollCue target="#about" />
             </div>
-
             <style jsx>{`
         @keyframes wave {
           0%, 100% { transform: rotate(0deg); }
