@@ -13,7 +13,7 @@ export default function Home() {
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
         ]}
-        ctaText="Contact Me"
+        ctaText="Contact"
         ctaHref="mailto:leonardo.bruksch@gmail.com"
       />
       <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -21,7 +21,7 @@ export default function Home() {
           <section id="hero">
             <Hero />
           </section>
-          <section id="about">
+          <section id="about" className="scroll-mt-32">
             <ExpertiseSection />
           </section>
           <section id="experience">
