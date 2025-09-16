@@ -2,6 +2,7 @@ import { Navbar01 } from "@/components/ui/navbar";
 import { ExpertiseSection } from "@/components/ui/sections/expertise";
 import { Hero } from "@/components/ui/sections/hero";
 import { ExperienceSection } from "@/components/ui/sections/experience";
+import { Footer } from "@/components/ui/sections/footer";
 
 export default function Home() {
   return (
@@ -28,6 +29,11 @@ export default function Home() {
           </section>
         </main>
       </div>
+
+      <section id="contact">
+        <Footer />
+      </section>
+
     </>
   );
 }

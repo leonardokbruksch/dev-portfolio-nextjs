@@ -6,7 +6,7 @@ import { Calendar, MapPin, ExternalLink } from "lucide-react";
 import { Badge } from "../badge";
 
 export type Experience = {
-    company: string;
+    company?: string;
     role: string;
     location?: string;
     website?: string;
@@ -33,14 +33,15 @@ function PillList({ items }: { items?: string[] }) {
 function ExperienceRow({ exp, value }: { exp: Experience; value: string }) {
     return (
         <AccordionItem value={value} className="border-b">
-            <AccordionTrigger className="text-left">
+            <AccordionTrigger>
                 <div className="flex w-full items-center justify-between gap-4">
-                    <div className="flex min-w-0 flex-col">
-                        <span className="truncate text-base sm:text-lg font-semibold">
-                            {exp.role} @ {exp.company}
-                        </span>
-                        <span className="text-xs sm:text-sm text-foreground/60">{exp.period}</span>
-                    </div>
+                    <span className="min-w-0 flex-1 truncate text-base sm:text-lg font-semibold">
+                        {exp.role}
+                        {exp.company && ` @ ${exp.company}`}
+                    </span>
+                    <span className="hidden sm:inline text-xs sm:text-sm text-foreground/60 shrink-0">
+                        {exp.period}
+                    </span>
                 </div>
             </AccordionTrigger>
             <AccordionContent>
@@ -90,7 +91,7 @@ function ExperienceRow({ exp, value }: { exp: Experience; value: string }) {
 const EXPERIENCES: Experience[] = [
     {
         company: "V-DAQ",
-        role: "Full Stack Software Engineer",
+        role: "Full Stack Developer",
         location: "Wollongong, Australia",
         period: "Nov 2023 – Sep 2025",
         summary:
@@ -125,7 +126,7 @@ const EXPERIENCES: Experience[] = [
     },
     {
         company: "Unitech",
-        role: "Full Stack Software Engineer",
+        role: "Full Stack Engineer",
         location: "Wollongong, Australia",
         period: "Jan 2023 – Nov 2023",
         summary:
@@ -137,7 +138,7 @@ const EXPERIENCES: Experience[] = [
         skills: ["Java", "Spring Boot", "React", "TypeScript", "Docker"],
     },
     {
-        company: "Self-Employed",
+        company: undefined,
         role: "Digital Product Entrepreneur",
         location: "Florianópolis, Brazil",
         period: "Sep 2018 – Oct 2022",
@@ -151,7 +152,7 @@ const EXPERIENCES: Experience[] = [
     },
     {
         company: "SAP Labs",
-        role: "Backend Software Engineer",
+        role: "Backend Developer",
         location: "São Leopoldo, Brazil",
         period: "Apr 2015 – Mar 2019",
         summary:
