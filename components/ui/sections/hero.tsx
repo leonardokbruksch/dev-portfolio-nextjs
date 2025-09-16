@@ -2,13 +2,14 @@
 
 import { ScrollCue } from '../scroll-cue';
 import { TerminalIntro } from '@/components/ui/terminal-intro';
+import { Linkedin, FileText } from "lucide-react";
 
 export function Hero() {
     return (
         <section className="relative flex h-[60vh] min-h-[420px] w-full items-center">
             <TerminalIntro />
-            <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
-                <h1 className="flex items-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
+            <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
+                <h1 className="flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
                     <span className="text-[var(--brand-name)]">Leo</span>
                     <span
@@ -21,8 +22,30 @@ export function Hero() {
                 </h1>
 
                 <p className="mt-3 text-xl sm:text-3xl font-semibold text-foreground/60">
-                    A full-stack web and mobile software developer.
+                    I like to code stuff.
                 </p>
+
+                <div className="mt-6 flex items-center justify-center gap-3 text-foreground/70 text-base sm:text-lg">
+                    <a
+                        href="https://www.linkedin.com/in/leonardo-bruksch-65246198/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-foreground transition-colors flex items-center gap-2"
+                    >
+                        <Linkedin className="w-5 h-5" />
+                        <span className="font-medium">LinkedIn</span>
+                    </a>
+                    <span>|</span>
+                    <a
+                        href="/Leonardo-Bruksch-CV.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-foreground transition-colors flex items-center gap-2"
+                    >
+                        <FileText className="w-5 h-5" />
+                        <span className="font-medium">CV</span>
+                    </a>
+                </div>
             </div>
             <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center">
                 <ScrollCue target="#about" />

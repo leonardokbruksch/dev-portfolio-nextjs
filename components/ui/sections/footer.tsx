@@ -4,7 +4,7 @@ import { Linkedin, FileText, Hammer } from "lucide-react";
 
 export function Footer() {
     return (
-        <footer className="w-full mt-20">
+        <footer className="w-full mt-0">
             <div className="mx-auto max-w-5xl px-6 py-16 text-center space-y-10">
                 <h2 className="flex items-center justify-center gap-3 text-xl sm:text-2xl font-semibold text-foreground/80">
                     Let’s build something great together!
