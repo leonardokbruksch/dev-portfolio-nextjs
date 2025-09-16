@@ -3,6 +3,14 @@
 import { ScrollCue } from '../scroll-cue';
 import { TerminalIntro } from '@/components/ui/terminal-intro';
 import { Linkedin, FileText } from "lucide-react";
+import { Typewriter } from "react-simple-typewriter";
+
+import { JetBrains_Mono } from "next/font/google";
+
+const jetbrainsMono = JetBrains_Mono({
+    subsets: ["latin"],
+    weight: ["400", "700"],
+});
 
 export function Hero() {
     return (
@@ -21,8 +29,18 @@ export function Hero() {
                     </span>
                 </h1>
 
-                <p className="mt-3 text-xl sm:text-3xl font-semibold text-foreground/60">
-                    I like to code stuff.
+                <p
+                    className={`mt-3 text-xl sm:text-3xl font-semibold text-foreground/60 ${jetbrainsMono.className}`}
+                >
+                    <Typewriter
+                        words={['I like to code stuff.']}
+                        loop={0}
+                        cursor
+                        cursorStyle="|"
+                        typeSpeed={70}
+                        deleteSpeed={50}
+                        delaySpeed={2000}
+                    />
                 </p>
 
                 <div className="mt-6 flex items-center justify-center gap-3 text-foreground/70 text-base sm:text-lg">
