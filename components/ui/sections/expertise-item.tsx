@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { cn } from '@/lib/utils';
+import { PillList } from '@/components/ui/pill';
 
 interface ExpertiseItemProps {
     icon: React.ReactNode;
@@ -38,18 +39,7 @@ export function ExpertiseItem({ icon, title, subheader, blurb, tags = [] }: Expe
 
             <div className="flex-1" />
 
-            {tags.length > 0 && (
-                <ul className="mt-4 flex flex-wrap gap-2">
-                    {tags.map((t) => (
-                        <li
-                            key={t}
-                            className="text-[11px] leading-5 px-2.5 rounded-full border border-white/10 text-foreground/70 bg-background/60"
-                        >
-                            {t}
-                        </li>
-                    ))}
-                </ul>
-            )}
+            <PillList items={tags} />
         </article>
     );
 }

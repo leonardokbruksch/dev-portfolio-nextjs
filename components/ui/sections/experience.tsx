@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "@/components/ui/accordion";
 import { Calendar, MapPin, ExternalLink } from "lucide-react";
-import { Badge } from "../badge";
+import { PillList } from "@/components/ui/pill";
 
 export type Experience = {
     company?: string;
@@ -16,19 +16,6 @@ export type Experience = {
     skills?: string[];
     logoUrl?: string;
 };
-
-function PillList({ items }: { items?: string[] }) {
-    if (!items?.length) return null;
-    return (
-        <div className="mt-4 flex flex-wrap gap-2">
-            {items.map((s) => (
-                <Badge key={s} variant="secondary" className="rounded-full px-3 py-1 text-xs">
-                    {s}
-                </Badge>
-            ))}
-        </div>
-    );
-}
 
 function ExperienceRow({ exp, value }: { exp: Experience; value: string }) {
     return (

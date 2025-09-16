@@ -143,3 +143,13 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .pill {
+    @apply inline-flex items-center rounded-full border border-border bg-background/60 text-foreground/70 text-[11px] leading-5 px-2.5;
+  }
+
+  .pill-list {
+    @apply mt-4 flex flex-wrap gap-2;
+  }
+}

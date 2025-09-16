@@ -6,18 +6,18 @@ export function Hero() {
     return (
         <section className="relative flex h-[60vh] min-h-[420px] w-full items-center">
             <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
-                <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap">
-                    <span>Hey, I’m </span>
+                <h1 className="flex items-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
+                    <span>Hey, I’m</span>
                     <span className="text-[var(--brand-name)]">Leo</span>
                     <span
                         aria-hidden
                         className="inline-block select-none align-[0.1em]"
                         style={{ animation: "wave 1.8s ease-in-out 0s infinite" }}
                     >
-                        {" "}
                         👋
                     </span>
                 </h1>
+
                 <p className="mt-3 text-xl sm:text-3xl font-semibold text-foreground/60">
                     A full-stack web and mobile software developer.
                 </p>
