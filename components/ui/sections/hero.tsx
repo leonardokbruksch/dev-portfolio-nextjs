@@ -1,10 +1,12 @@
-"use client";
+'use client';
 
-import { ScrollCue } from "../scroll-cue";
+import { ScrollCue } from '../scroll-cue';
+import { TerminalIntro } from '@/components/ui/terminal-intro';
 
 export function Hero() {
     return (
         <section className="relative flex h-[60vh] min-h-[420px] w-full items-center">
+            <TerminalIntro />
             <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
                 <h1 className="flex items-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
@@ -12,7 +14,7 @@ export function Hero() {
                     <span
                         aria-hidden
                         className="inline-block select-none align-[0.1em]"
-                        style={{ animation: "wave 1.8s ease-in-out 0s infinite" }}
+                        style={{ animation: 'wave 1.8s ease-in-out 0s infinite' }}
                     >
                         👋
                     </span>
