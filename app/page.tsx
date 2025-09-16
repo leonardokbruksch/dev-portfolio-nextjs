@@ -3,10 +3,15 @@ import { ExpertiseSection } from "@/components/ui/sections/expertise";
 import { Hero } from "@/components/ui/sections/hero";
 import { ExperienceSection } from "@/components/ui/sections/experience";
 import { Footer } from "@/components/ui/sections/footer";
+import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 
 export default function Home() {
   return (
     <>
+      <div className="fixed inset-0 -z-10 pointer-events-none">
+        <BackgroundGradientAnimation />
+      </div>
+
       <Navbar01
         className="top-4"
         navigationLinks={[
