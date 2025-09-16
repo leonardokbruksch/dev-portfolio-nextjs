@@ -87,7 +87,7 @@ html {
   --bubble-5: 180, 180, 50;
   --bubble-6: 140, 100, 255;
   --brand-name: oklch(0.86 0.14 220);
-  --brand-dot: oklch(1 0 0);
+  --brand-dot: oklch(0 0 0);
   --brand-underscore: oklch(0.73 0.20 300);
 }
 
