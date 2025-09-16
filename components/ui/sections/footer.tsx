@@ -1,6 +1,6 @@
 "use client";
 
-import { Linkedin, FileText, Hammer } from "lucide-react";
+import { Linkedin, FileText, Hammer, Github } from "lucide-react";
 
 export function Footer() {
     return (
@@ -37,10 +37,29 @@ export function Footer() {
                         <span className="text-sm font-medium">CV</span>
                     </a>
                 </div>
+
+                <div className="pt-6 flex flex-col items-center gap-3">
+                    <p className="text-sm text-foreground/60">
+                        No secrets here — check the source:
+                    </p>
+                    <a
+                        href="https://github.com/leonardokbruksch/dev-portfolio-nextjs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-foreground transition-colors flex items-center gap-2 text-foreground/70"
+                    >
+                        <Github className="w-6 h-6" />
+                        <span className="font-medium">GitHub</span>
+                    </a>
+                    <p className="text-xs text-foreground/50 italic">
+                        No LLM’s were hurt in the creation of this website.
+                    </p>
+                </div>
             </div>
 
             <div className="py-6 text-center text-xs text-foreground/50">
-                © {new Date().getFullYear()} Leonardo Krummenauer Bruksch. Built with Next.js, Tailwind, and shadcn/ui.
+                © {new Date().getFullYear()} Leonardo Krummenauer Bruksch. Built with
+                Next.js, Tailwind, and shadcn/ui.
             </div>
         </footer>
     );
