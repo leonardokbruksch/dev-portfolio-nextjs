@@ -16,11 +16,13 @@ export default function Home() {
         ctaText="Contact"
         ctaHref="mailto:leonardo.bruksch@gmail.com"
       />
-      <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-        <main className="flex w-full flex-col gap-12 row-start-2 items-center sm:items-stretch">
-          <section id="hero">
-            <Hero />
-          </section>
+
+      <section id="hero">
+        <Hero />
+      </section>
+
+      <div className="font-sans items-center justify-items-center p-8 pb-20 sm:p-20">
+        <main className="flex w-full flex-col gap-24 items-center sm:items-stretch">
           <section id="about" className="scroll-mt-32">
             <ExpertiseSection />
           </section>
@@ -33,7 +35,6 @@ export default function Home() {
       <section id="contact">
         <Footer />
       </section>
-
     </>
   );
 }

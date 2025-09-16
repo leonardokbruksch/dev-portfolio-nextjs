@@ -6,7 +6,7 @@ import { Linkedin, FileText } from "lucide-react";
 
 export function Hero() {
     return (
-        <section className="relative flex h-[60vh] min-h-[420px] w-full items-center">
+        <section className="relative flex min-h-svh w-full items-center">
             <TerminalIntro />
             <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
                 <h1 className="flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
@@ -47,9 +47,11 @@ export function Hero() {
                     </a>
                 </div>
             </div>
-            <div className="pointer-events-auto absolute inset-x-0 bottom-6 flex justify-center">
+
+            <div className="pointer-events-auto absolute inset-x-0 bottom-26 flex justify-center">
                 <ScrollCue target="#about" />
             </div>
+
             <style jsx>{`
         @keyframes wave {
           0%, 100% { transform: rotate(0deg); }
