@@ -2,14 +2,14 @@
 
 import { ScrollCue } from '../scroll-cue';
 import { TerminalIntro } from '@/components/ui/terminal-intro';
-import { Linkedin, FileText } from "lucide-react";
-import { Typewriter } from "react-simple-typewriter";
-
-import { JetBrains_Mono } from "next/font/google";
+import { Linkedin, FileText } from 'lucide-react';
+import { Typewriter } from 'react-simple-typewriter';
+import { JetBrains_Mono } from 'next/font/google';
+import { RotatingComputer } from '../retro-computer';
 
 const jetbrainsMono = JetBrains_Mono({
-    subsets: ["latin"],
-    weight: ["400", "700"],
+    subsets: ['latin'],
+    weight: ['400', '700'],
 });
 
 export function Hero() {
@@ -17,6 +17,10 @@ export function Hero() {
         <section className="relative flex min-h-svh w-full items-center">
             <TerminalIntro />
             <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
+                <div className="pointer-events-none mx-auto -mb-2 sm:-mb-3">
+                    <RotatingComputer className="h-28 w-28 sm:h-36 sm:w-36 md:h-44 md:w-44 lg:h-56 lg:w-56" />
+                </div>
+
                 <h1 className="flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
                     <span className="text-[var(--brand-name)]">Leo</span>
@@ -29,9 +33,7 @@ export function Hero() {
                     </span>
                 </h1>
 
-                <p
-                    className={`mt-3 text-xl sm:text-3xl font-semibold text-foreground/60 ${jetbrainsMono.className}`}
-                >
+                <p className={`mt-3 text-xl sm:text-3xl font-semibold text-foreground/60 ${jetbrainsMono.className}`}>
                     <Typewriter
                         words={['I like to code stuff.']}
                         loop={0}
@@ -72,12 +74,25 @@ export function Hero() {
 
             <style jsx>{`
         @keyframes wave {
-          0%, 100% { transform: rotate(0deg); }
-          15% { transform: rotate(14deg); }
-          30% { transform: rotate(-8deg); }
-          45% { transform: rotate(14deg); }
-          60% { transform: rotate(-4deg); }
-          75% { transform: rotate(10deg); }
+          0%,
+          100% {
+            transform: rotate(0deg);
+          }
+          15% {
+            transform: rotate(14deg);
+          }
+          30% {
+            transform: rotate(-8deg);
+          }
+          45% {
+            transform: rotate(14deg);
+          }
+          60% {
+            transform: rotate(-4deg);
+          }
+          75% {
+            transform: rotate(10deg);
+          }
         }
       `}</style>
         </section>
