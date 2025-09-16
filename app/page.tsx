@@ -13,8 +13,8 @@ export default function Home() {
           { href: "#about", label: "About" },
           { href: "#experience", label: "Experience" },
         ]}
-        ctaText="Contact"
-        ctaHref="#contact"
+        ctaText="Contact Me"
+        ctaHref="mailto:leonardo.bruksch@gmail.com"
       />
       <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
         <main className="flex w-full flex-col gap-12 row-start-2 items-center sm:items-stretch">
