@@ -8,7 +8,7 @@ import { BackgroundGradientAnimation } from "@/components/ui/background-gradient
 export default function Home() {
   return (
     <>
-      <div className="fixed inset-0 -z-10 pointer-events-none">
+      <div className="fixed inset-0 -z-10">
         <BackgroundGradientAnimation />
       </div>
 
