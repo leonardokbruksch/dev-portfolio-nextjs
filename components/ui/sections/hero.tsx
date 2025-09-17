@@ -2,7 +2,7 @@
 
 import { ScrollCue } from '../scroll-cue';
 import { TerminalIntro } from '@/components/ui/terminal-intro';
-import { Linkedin, FileText } from 'lucide-react';
+import { Linkedin, FileText, MapPin } from 'lucide-react';
 import { Typewriter } from 'react-simple-typewriter';
 import { JetBrains_Mono } from 'next/font/google';
 import { RotatingComputer } from '../retro-computer';
@@ -14,14 +14,14 @@ const jetbrainsMono = JetBrains_Mono({
 
 export function Hero() {
     return (
-        <section className="relative flex min-h-svh w-full items-center">
-            <TerminalIntro />
-            <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
-                <div className="pointer-events-none mx-auto -mb-6 sm:-mb-9">
+        <section className="relative grid min-h-screen grid-rows-[1fr_auto] w-full px-6 sm:px-8 pb-[calc(env(safe-area-inset-bottom)+48px)]">
+            <div className="place-self-center text-center w-full max-w-5xl">
+                <TerminalIntro />
+                <div className="pointer-events-none mx-auto -mb-9 sm:-mb-12">
                     <RotatingComputer className="h-28 w-28 sm:h-36 sm:w-36 md:h-44 md:w-44 lg:h-56 lg:w-56" />
                 </div>
 
-                <h1 className="flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
+                <h1 className="mt-6 flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
                     <span className="text-[var(--brand-name)]">Leo</span>
                     <span
@@ -66,33 +66,25 @@ export function Hero() {
                         <span className="font-medium">CV</span>
                     </a>
                 </div>
+
+                <div className="mt-4 flex items-center justify-center gap-2 text-foreground/60 text-sm sm:text-base">
+                    <MapPin className="w-4 h-4" />
+                    <span>Brazil</span>
+                </div>
             </div>
 
-            <div className="pointer-events-auto absolute inset-x-0 bottom-26 flex justify-center">
+            <div className="pointer-events-auto flex justify-center pb-2 mb-6 sm:mb-9">
                 <ScrollCue target="#about" />
             </div>
 
             <style jsx>{`
         @keyframes wave {
-          0%,
-          100% {
-            transform: rotate(0deg);
-          }
-          15% {
-            transform: rotate(14deg);
-          }
-          30% {
-            transform: rotate(-8deg);
-          }
-          45% {
-            transform: rotate(14deg);
-          }
-          60% {
-            transform: rotate(-4deg);
-          }
-          75% {
-            transform: rotate(10deg);
-          }
+          0%, 100% { transform: rotate(0deg); }
+          15% { transform: rotate(14deg); }
+          30% { transform: rotate(-8deg); }
+          45% { transform: rotate(14deg); }
+          60% { transform: rotate(-4deg); }
+          75% { transform: rotate(10deg); }
         }
       `}</style>
         </section>
