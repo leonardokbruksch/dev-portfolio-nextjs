@@ -17,7 +17,7 @@ export function Hero() {
         <section className="relative flex min-h-svh w-full items-center">
             <TerminalIntro />
             <div className="mx-auto w-full max-w-5xl px-6 sm:px-8 text-center">
-                <div className="pointer-events-none mx-auto -mb-2 sm:-mb-3">
+                <div className="pointer-events-none mx-auto -mb-6 sm:-mb-9">
                     <RotatingComputer className="h-28 w-28 sm:h-36 sm:w-36 md:h-44 md:w-44 lg:h-56 lg:w-56" />
                 </div>
 

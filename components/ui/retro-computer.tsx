@@ -10,10 +10,10 @@ export function RotatingComputer({ className }: { className?: string }) {
             <Canvas className="h-full w-full" dpr={[1, 2]} camera={{ position: [0, 0.2, 4.2], fov: 35 }}>
                 <ambientLight intensity={0.9} />
                 <directionalLight position={[2, 2, 2]} intensity={1} />
-                <group rotation={[0.15, 0.55, 0]}>
+                <group rotation={[0.15, Math.PI, 0]}>
                     <ComputerModel />
                 </group>
-                <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1.2} />
+                <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={3.0} />
             </Canvas>
         </div>
     );
