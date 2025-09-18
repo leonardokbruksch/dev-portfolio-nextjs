@@ -73,7 +73,7 @@ export function Hero() {
                 </div>
             </div>
 
-            <div className="pointer-events-auto flex justify-center pb-2 mb-6 sm:mb-9">
+            <div className="pointer-events-auto flex justify-center pb-2 mb-28 sm:mb-34">
                 <ScrollCue target="#about" />
             </div>
 
