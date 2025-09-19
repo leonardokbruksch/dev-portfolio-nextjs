@@ -203,3 +203,67 @@ html {
     transform: translateY(-50%);
   }
 }
+
+:root {
+  --tide-circle-radius: 6px;
+  --tide-font-size: 16px;
+  --tide-stroke-width: 3px;
+  --tide-chart-height: 140px;
+  --tide-label-pad: 16px;
+  --tide-padding: 1.5rem;
+  --tide-icon-size: 2.5rem;
+  --tide-icon-inner: 1.25rem;
+  --tide-text-size: 1rem;
+  --tide-value-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --tide-circle-radius: 4px;
+    --tide-font-size: 11px;
+    --tide-stroke-width: 2px;
+    --tide-chart-height: 120px;
+    --tide-label-pad: 12px;
+    --tide-padding: 1rem;
+    --tide-icon-size: 2rem;
+    --tide-icon-inner: 1rem;
+    --tide-text-size: 0.875rem;
+    --tide-value-size: 1.125rem;
+  }
+}
+
+.tide-icon-container {
+  height: var(--tide-icon-size);
+  width: var(--tide-icon-size);
+}
+
+.tide-icon {
+  height: var(--tide-icon-inner);
+  width: var(--tide-icon-inner);
+}
+
+.tide-trend-icon {
+  height: var(--tide-icon-inner);
+  width: var(--tide-icon-inner);
+}
+
+.tide-label {
+  font-size: var(--tide-text-size);
+}
+
+.tide-value {
+  font-size: var(--tide-value-size);
+}
+
+.tide-svg {
+  min-height: var(--tide-chart-height);
+}
+
+.tide-no-data {
+  height: var(--tide-chart-height);
+  font-size: var(--tide-text-size);
+}
+
+svg circle {
+  r: var(--tide-circle-radius);
+}

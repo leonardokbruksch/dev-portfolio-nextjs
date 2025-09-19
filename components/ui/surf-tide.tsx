@@ -51,7 +51,8 @@ export function TideBlock({
     const chart = useMemo(() => {
         if (!windowed) return null;
         const pts = windowed.slice;
-        const w = 360, h = 120;
+        const w = 360;
+        const h = 120;
         const pad = { left: 16, right: 16, top: 28, bottom: 24 };
         const ys = pts.map((p) => p.y);
         const min = Math.min(...ys);
@@ -69,14 +70,14 @@ export function TideBlock({
             <div className="rounded-2xl border border-white/10 bg-background/60 p-4">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-background/60">
-                            <Waves className="h-4 w-4" />
+                        <div className="tide-icon-container inline-flex items-center justify-center rounded-lg border border-white/10 bg-background/60">
+                            <Waves className="tide-icon" />
                         </div>
-                        <span className="text-sm text-foreground/70">Tide</span>
+                        <span className="tide-label text-foreground/70">Tide</span>
                     </div>
-                    <span className="text-lg font-semibold">{formatOrNA(now, 'm')}</span>
+                    <span className="tide-value font-semibold">{formatOrNA(now, 'm')}</span>
                 </div>
-                <div className="mt-3 h-24 flex items-center justify-center text-sm text-foreground/50">No tide data</div>
+                <div className="tide-no-data mt-3 flex items-center justify-center text-foreground/50">No tide data</div>
             </div>
         );
     }
@@ -91,8 +92,8 @@ export function TideBlock({
         series && series.length >= 2
             ? series[Math.min(series.length - 1, nowIdxRel + 1 + windowed.start)] >
                 series[Math.max(0, nowIdxRel + windowed.start - 1)]
-                ? <ArrowUp className="h-5 w-5" />
-                : <ArrowDown className="h-5 w-5" />
+                ? <ArrowUp className="tide-trend-icon" />
+                : <ArrowDown className="tide-trend-icon" />
             : null;
 
     const textY = (v: number) => Math.max(12, chart.y(v) - 8);
@@ -108,28 +109,45 @@ export function TideBlock({
         <div className="rounded-2xl border border-white/10 bg-background/60 p-4 overflow-visible">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <div className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 bg-background/60">
-                        <Waves className="h-4 w-4" />
+                    <div className="tide-icon-container inline-flex items-center justify-center rounded-lg border border-white/10 bg-background/60">
+                        <Waves className="tide-icon" />
                     </div>
-                    <span className="text-sm text-foreground/70">Tide</span>
+                    <span className="tide-label text-foreground/70">Tide</span>
                 </div>
                 <div className="flex items-center gap-2">
-                    <span className="text-lg font-semibold">{formatOrNA(now, 'm')}</span>
+                    <span className="tide-value font-semibold">{formatOrNA(now, 'm')}</span>
                     {trendIcon}
                 </div>
             </div>
 
             <div className="mt-3 overflow-visible">
-                <svg width={chart.w} height={chart.h} viewBox={`0 0 ${chart.w} ${chart.h}`} className="w-full overflow-visible" preserveAspectRatio="xMidYMid meet">
+                <svg
+                    width={chart.w}
+                    height={chart.h}
+                    viewBox={`0 0 ${chart.w} ${chart.h}`}
+                    className="w-full overflow-visible tide-svg"
+                    preserveAspectRatio="xMidYMid meet"
+                >
                     <path d={chart.area} fill="currentColor" className="opacity-10" />
-                    <path d={chart.d} fill="none" stroke="currentColor" strokeWidth="2" className="opacity-80" />
+                    <path
+                        d={chart.d}
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="var(--tide-stroke-width)"
+                        className="opacity-80"
+                    />
 
                     <g>
-                        <circle cx={chart.x(prevLabel.idx)} cy={chart.y(prevLabel.y)} r={CIRCLE_R} fill="currentColor" />
+                        <circle
+                            cx={chart.x(prevLabel.idx)}
+                            cy={chart.y(prevLabel.y)}
+                            r="var(--tide-circle-radius)"
+                            fill="currentColor"
+                        />
                         <text
                             x={chart.x(prevLabel.idx) + 8}
                             y={textY(prevLabel.y) - (CIRCLE_R + LABEL_PAD)}
-                            fontSize="11"
+                            fontSize="var(--tide-font-size)"
                             className="fill-current"
                         >
                             <tspan x={chart.x(prevLabel.idx) + 8}>{fmtTime(prevLabel.t, timezone)}</tspan>
@@ -138,11 +156,16 @@ export function TideBlock({
                     </g>
 
                     <g className='text-[var(--brand-name)]'>
-                        <circle cx={chart.x(nowIdxRel)} cy={chart.y(nowPt.y)} r={CIRCLE_R} fill="currentColor" />
+                        <circle
+                            cx={chart.x(nowIdxRel)}
+                            cy={chart.y(nowPt.y)}
+                            r="var(--tide-circle-radius)"
+                            fill="currentColor"
+                        />
                         <text
                             x={chart.x(nowIdxRel)}
                             y={textY(nowPt.y) - (CIRCLE_R + LABEL_PAD)}
-                            fontSize="11"
+                            fontSize="var(--tide-font-size)"
                             className="fill-current"
                             textAnchor="middle"
                         >
@@ -152,11 +175,16 @@ export function TideBlock({
                     </g>
 
                     <g>
-                        <circle cx={chart.x(nextLabel.idx)} cy={chart.y(nextLabel.y)} r={CIRCLE_R} fill="currentColor" />
+                        <circle
+                            cx={chart.x(nextLabel.idx)}
+                            cy={chart.y(nextLabel.y)}
+                            r="var(--tide-circle-radius)"
+                            fill="currentColor"
+                        />
                         <text
                             x={chart.x(nextLabel.idx) - 8}
                             y={textY(nextLabel.y) - (CIRCLE_R + LABEL_PAD)}
-                            fontSize="11"
+                            fontSize="var(--tide-font-size)"
                             className="fill-current"
                             textAnchor="end"
                         >
@@ -164,7 +192,6 @@ export function TideBlock({
                             <tspan x={chart.x(nextLabel.idx) - 8} dy={LINE_GAP}>{nextLabel.y.toFixed(1)}m</tspan>
                         </text>
                     </g>
-
                 </svg>
             </div>
         </div>
