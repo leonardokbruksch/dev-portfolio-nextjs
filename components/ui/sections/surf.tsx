@@ -1,7 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { Waves, Wind, Compass, ArrowUp, ArrowDown } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Waves, Wind, Compass, ArrowUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { TideBlock } from '../surf-tide';
 
@@ -83,7 +83,7 @@ export function SurfSection() {
     return (
         <section className="mx-auto w-full max-w-5xl">
             <h2 className="text-center text-2xl sm:text-3xl font-bold mb-6">In my free time I like to surf. 🌊</h2>
-            <p className="text-center text-foreground/70 mb-12">Live surf, wind, and tide info, fetched from Open-Meteo Marine + Open-Meteo Weather API's.</p>
+            <p className="text-center text-foreground/70 mb-12">Live surf, wind, and tide info, fetched from Open-Meteo Marine + Open-Meteo Weather API.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 w-full">
                 {spots.map((spot) => (
                     <SurfCard

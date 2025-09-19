@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client';
 
 import {
@@ -587,7 +588,7 @@ export const CodeBlockContent = ({
     const loadHighlightedCode = async () => {
       try {
         const { codeToHtml } = await import('shiki');
-        
+
         const html = await codeToHtml(children, {
           lang: language,
           themes: {
