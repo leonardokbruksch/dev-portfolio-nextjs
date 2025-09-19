@@ -13,7 +13,7 @@ import {
   PromptInputToolbar,
   PromptInputTools,
 } from "@/components/ui/ai/prompt-input";
-import { MicIcon, PaperclipIcon } from "lucide-react";
+import { MicIcon } from "lucide-react";
 import { type FormEventHandler, useEffect, useRef, useState } from "react";
 import { Bot, User } from "lucide-react";
 import { Loader } from "@/components/ui/ai/loader";
@@ -92,9 +92,6 @@ export default function AmaChat() {
         />
         <PromptInputToolbar>
           <PromptInputTools>
-            <PromptInputButton>
-              <PaperclipIcon size={16} />
-            </PromptInputButton>
             <PromptInputButton>
               <MicIcon size={16} />
               <span>Voice</span>
