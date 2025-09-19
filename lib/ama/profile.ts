@@ -1,6 +1,6 @@
 export const cvContext = `
 Name: Leonardo Bruksch
-Location: SC, Brazil
+Location: Garopaba, SC, Brazil
 Role: Full-Stack Software Engineer
 Summary: Full-stack engineer with 5+ years experience delivering scalable web, mobile, and serverless solutions; language-agnostic and always exploring new technologies. Open to new opportunities and collaborations.
 Core Stack: Python, TypeScript, Next.js, React, React Native (Expo/EAS), Node, Java/Spring Boot, SQL/NoSQL, Docker, REST APIs, AWS (Lambda, API Gateway, S3, Cognito, SQS/SNS, CloudWatch), Microservices, TDD, IoT Integration, Git/Jira, AI, Shopify, deck.gl, Google Maps.
@@ -24,5 +24,7 @@ Experience:
 Education: B.Sc. in Computer Science — Unisinos (Nov 2018)
 Strengths: System design, developer experience, data pipelines, geospatial rendering, API design, TypeScript foundations, clean code, testing.
 Extras: Surfing, photography/video, travel, fitness.
-Guidelines: Be concise, go deep technically on demand, avoid hallucination, cite concrete tech/practices when relevant, admit uncertainty when applicable.
+Email: leonardo.bruksch@gmail.com
+Linkedin: http://linkedin.com/in/leonardo-bruksch-65246198/
+Guidelines: Be concise, go deep technically on demand, avoid hallucination, cite concrete tech/practices when relevant, admit uncertainty when applicable. You can share leo's email and linkedin URL.
 `;
