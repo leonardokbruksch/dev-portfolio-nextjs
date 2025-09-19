@@ -5,6 +5,7 @@ import { ExperienceSection } from "@/components/ui/sections/experience";
 import { Footer } from "@/components/ui/sections/footer";
 import { BackgroundGradientAnimation } from "@/components/ui/background-gradient-animation";
 import { SurfSection } from "@/components/ui/sections/surf";
+import { AskMeAnythingSection } from "@/components/ui/sections/ask-me-anything";
 
 export default function Home() {
   return (
@@ -34,6 +35,9 @@ export default function Home() {
           </section>
           <section id="experience">
             <ExperienceSection />
+          </section>
+          <section id="ama" className="scroll-mt-32">
+            <AskMeAnythingSection />
           </section>
           <section id="surf">
             <SurfSection />
