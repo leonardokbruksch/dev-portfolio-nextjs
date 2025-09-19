@@ -13,7 +13,7 @@ import {
   PromptInputToolbar,
   PromptInputTools,
 } from "@/components/ui/ai/prompt-input";
-import { MicIcon } from "lucide-react";
+import { MicIcon, SquareIcon } from "lucide-react";
 import { type FormEventHandler, useEffect, useRef, useState } from "react";
 import { Bot, User } from "lucide-react";
 import { Loader } from "@/components/ui/ai/loader";
@@ -38,10 +38,7 @@ export default function AmaChat() {
   const toggleRecording = async () => {
     if (!recording) {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const mime =
-        MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
-          ? "audio/webm;codecs=opus"
-          : "audio/webm";
+      const mime = MediaRecorder.isTypeSupported("audio/webm;codecs=opus") ? "audio/webm;codecs=opus" : "audio/webm";
       const mr = new MediaRecorder(stream, { mimeType: mime });
       chunksRef.current = [];
       mr.ondataavailable = (e) => {
@@ -134,11 +131,13 @@ export default function AmaChat() {
             <PromptInputTools>
               <PromptInputButton
                 onClick={toggleRecording}
-                variant={recording ? "default" : "ghost"}
+                variant={recording ? "destructive" : "ghost"}
                 aria-pressed={recording}
+                aria-label={recording ? "Stop recording" : "Start voice recording"}
               >
-                <MicIcon size={16} />
-                <span>{recording ? "Recording…" : "Voice"}</span>
+                {recording ? <SquareIcon size={16} /> : <MicIcon size={16} />}
+                <span>{recording ? "Stop" : "Voice"}</span>
+                {recording && <span className="ml-2 inline-block h-2 w-2 animate-pulse rounded-full bg-red-500" />}
               </PromptInputButton>
 
               <PromptInputModelSelect value={MODEL.id} onValueChange={() => { }} disabled>
