@@ -26,11 +26,49 @@ export default function AmaChat() {
   const [text, setText] = useState("");
   const [status, setStatus] = useState<"submitted" | "streaming" | "ready" | "error">("ready");
   const [messages, setMessages] = useState<Msg[]>([]);
+  const [recording, setRecording] = useState(false);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
+  const chunksRef = useRef<Blob[]>([]);
   const listRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (messages.length > 0) listRef.current?.scrollTo({ top: listRef.current.scrollHeight, behavior: "smooth" });
   }, [messages, status]);
+
+  const toggleRecording = async () => {
+    if (!recording) {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mime =
+        MediaRecorder.isTypeSupported("audio/webm;codecs=opus")
+          ? "audio/webm;codecs=opus"
+          : "audio/webm";
+      const mr = new MediaRecorder(stream, { mimeType: mime });
+      chunksRef.current = [];
+      mr.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunksRef.current.push(e.data);
+      };
+      mr.onstop = async () => {
+        const blob = new Blob(chunksRef.current, { type: mime });
+        const file = new File([blob], "speech.webm", { type: mime });
+        const fd = new FormData();
+        fd.append("file", file);
+        try {
+          const res = await fetch("/api/ama/transcribe", { method: "POST", body: fd });
+          const data = await res.json();
+          if (data?.text) setText((t) => (t ? `${t} ${data.text}` : data.text));
+        } catch {
+          setText((t) => (t ? `${t} [transcription failed]` : "[transcription failed]"));
+        }
+        mr.stream.getTracks().forEach((t) => t.stop());
+      };
+      mr.start(100);
+      mediaRecorderRef.current = mr;
+      setRecording(true);
+    } else {
+      mediaRecorderRef.current?.stop();
+      setRecording(false);
+    }
+  };
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault();
@@ -89,14 +127,20 @@ export default function AmaChat() {
           <PromptInputTextarea
             value={text}
             onChange={(e) => setText(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="Type or record your message..."
+            disabled={recording}
           />
           <PromptInputToolbar>
             <PromptInputTools>
-              <PromptInputButton>
+              <PromptInputButton
+                onClick={toggleRecording}
+                variant={recording ? "default" : "ghost"}
+                aria-pressed={recording}
+              >
                 <MicIcon size={16} />
-                <span>Voice</span>
+                <span>{recording ? "Recording…" : "Voice"}</span>
               </PromptInputButton>
+
               <PromptInputModelSelect value={MODEL.id} onValueChange={() => { }} disabled>
                 <PromptInputModelSelectTrigger className="pointer-events-none">
                   <PromptInputModelSelectValue placeholder={MODEL.name} />
