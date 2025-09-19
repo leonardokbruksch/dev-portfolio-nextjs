@@ -57,59 +57,62 @@ export default function AmaChat() {
   };
 
   return (
-    <div className="w-full space-y-4">
-      {messages.length > 0 && (
-        <div ref={listRef} className="h-80 w-full overflow-y-auto rounded-xl border bg-background/40 p-3">
-          <div className="space-y-4">
-            {messages.map((m, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                  {m.role === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+    <>
+      <div className="w-full space-y-4">
+        {messages.length > 0 && (
+          <div ref={listRef} className="h-80 w-full overflow-y-auto rounded-xl border bg-background/40 p-3">
+            <div className="space-y-4">
+              {messages.map((m, i) => (
+                <div key={i} className="flex items-start gap-3">
+                  <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
+                    {m.role === "user" ? <User className="h-3.5 w-3.5" /> : <Bot className="h-3.5 w-3.5" />}
+                  </div>
+                  <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap leading-relaxed">
+                    {m.content}
+                  </div>
                 </div>
-                <div className="prose prose-sm dark:prose-invert max-w-none whitespace-pre-wrap leading-relaxed">
-                  {m.content}
+              ))}
+              {(status === "submitted" || status === "streaming") && (
+                <div className="flex items-center gap-3 text-sm text-foreground/70">
+                  <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
+                    <Bot className="h-3.5 w-3.5" />
+                  </div>
+                  <Loader className="text-foreground/70" size={16} />
+                  <span>Thinking…</span>
                 </div>
-              </div>
-            ))}
-            {(status === "submitted" || status === "streaming") && (
-              <div className="flex items-center gap-3 text-sm text-foreground/70">
-                <div className="mt-0.5 flex h-6 w-6 items-center justify-center rounded-full border bg-background">
-                  <Bot className="h-3.5 w-3.5" />
-                </div>
-                <Loader className="text-foreground/70" size={16} />
-                <span>Thinking…</span>
-              </div>
-            )}
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
-      <PromptInput onSubmit={handleSubmit}>
-        <PromptInputTextarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          placeholder="Type your message..."
-        />
-        <PromptInputToolbar>
-          <PromptInputTools>
-            <PromptInputButton>
-              <MicIcon size={16} />
-              <span>Voice</span>
-            </PromptInputButton>
-            <PromptInputModelSelect value={MODEL.id} onValueChange={() => { }} disabled>
-              <PromptInputModelSelectTrigger className="pointer-events-none">
-                <PromptInputModelSelectValue placeholder={MODEL.name} />
-              </PromptInputModelSelectTrigger>
-              <PromptInputModelSelectContent>
-                <PromptInputModelSelectItem value={MODEL.id} disabled>
-                  {MODEL.name}
-                </PromptInputModelSelectItem>
-              </PromptInputModelSelectContent>
-            </PromptInputModelSelect>
-          </PromptInputTools>
-          <PromptInputSubmit disabled={!text || status === "submitted" || status === "streaming"} status={status} />
-        </PromptInputToolbar>
-      </PromptInput>
-    </div>
+        <PromptInput onSubmit={handleSubmit}>
+          <PromptInputTextarea
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder="Type your message..."
+          />
+          <PromptInputToolbar>
+            <PromptInputTools>
+              <PromptInputButton>
+                <MicIcon size={16} />
+                <span>Voice</span>
+              </PromptInputButton>
+              <PromptInputModelSelect value={MODEL.id} onValueChange={() => { }} disabled>
+                <PromptInputModelSelectTrigger className="pointer-events-none">
+                  <PromptInputModelSelectValue placeholder={MODEL.name} />
+                </PromptInputModelSelectTrigger>
+                <PromptInputModelSelectContent>
+                  <PromptInputModelSelectItem value={MODEL.id} disabled>
+                    {MODEL.name}
+                  </PromptInputModelSelectItem>
+                </PromptInputModelSelectContent>
+              </PromptInputModelSelect>
+            </PromptInputTools>
+            <PromptInputSubmit disabled={!text || status === "submitted" || status === "streaming"} status={status} />
+          </PromptInputToolbar>
+        </PromptInput>
+      </div>
+      <p className="mt-10 text-center text-sm text-foreground/50">AI Chatbot made with Open AI API. Backend built with Next.js router API.</p>
+    </>
   );
 }
