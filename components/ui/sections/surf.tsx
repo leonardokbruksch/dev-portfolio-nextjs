@@ -11,7 +11,8 @@ type SurfData = {
     wind_direction: number | null;
     sea_level_now: number | null;
     sea_level_series: number[] | null;
-    sea_level_times: string[] | null;
+    sea_level_times: number[] | null;
+    timezone: string | null;
 };
 
 type Spot = { name: string; latitude: number; longitude: number };
@@ -21,13 +22,13 @@ const spots: Spot[] = [
     { name: 'Praia do Silveira, Brazil', latitude: -28.05, longitude: -48.62 },
 ];
 
-const nearestIdx = (times: string[] | null | undefined) => {
+const nearestIdx = (times: number[] | null | undefined) => {
     if (!times || !times.length) return 0;
-    const now = Date.now();
+    const now = Math.floor(Date.now() / 1000);
     let best = 0;
     let bestDiff = Infinity;
     for (let i = 0; i < times.length; i++) {
-        const d = Math.abs(new Date(times[i]).getTime() - now);
+        const d = Math.abs(times[i] - now);
         if (d < bestDiff) {
             bestDiff = d;
             best = i;
@@ -45,15 +46,15 @@ export function SurfSection() {
             await Promise.all(
                 spots.map(async (spot) => {
                     try {
-                        const marineUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${spot.latitude}&longitude=${spot.longitude}&hourly=wave_height,wave_period,sea_level_height_msl&past_hours=24&forecast_hours=48&cell_selection=sea&timezone=auto`;
-                        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${spot.latitude}&longitude=${spot.longitude}&hourly=wind_speed_10m,wind_direction_10m&past_hours=24&forecast_hours=48&timezone=auto`;
+                        const marineUrl = `https://marine-api.open-meteo.com/v1/marine?latitude=${spot.latitude}&longitude=${spot.longitude}&hourly=wave_height,wave_period,sea_level_height_msl&past_hours=24&forecast_hours=48&cell_selection=sea&timezone=auto&timeformat=unixtime`;
+                        const weatherUrl = `https://api.open-meteo.com/v1/forecast?latitude=${spot.latitude}&longitude=${spot.longitude}&hourly=wind_speed_10m,wind_direction_10m&past_hours=24&forecast_hours=48&timezone=auto&timeformat=unixtime`;
 
                         const [marineRes, weatherRes] = await Promise.all([fetch(marineUrl), fetch(weatherUrl)]);
                         const marineJson = await marineRes.json();
                         const weatherJson = await weatherRes.json();
 
-                        const mTimes: string[] | null = marineJson?.hourly?.time ?? null;
-                        const wTimes: string[] | null = weatherJson?.hourly?.time ?? null;
+                        const mTimes: number[] | null = marineJson?.hourly?.time ?? null;
+                        const wTimes: number[] | null = weatherJson?.hourly?.time ?? null;
 
                         const mi = nearestIdx(mTimes);
                         const wi = nearestIdx(wTimes);
@@ -66,6 +67,7 @@ export function SurfSection() {
                             sea_level_now: marineJson?.hourly?.sea_level_height_msl?.[mi] ?? null,
                             sea_level_series: marineJson?.hourly?.sea_level_height_msl ?? null,
                             sea_level_times: mTimes,
+                            timezone: marineJson?.timezone ?? weatherJson?.timezone ?? null,
                         };
                     } catch {
                         results[spot.name] = null;
@@ -83,7 +85,12 @@ export function SurfSection() {
             <p className="text-center text-foreground/70 mb-12">Live surf, wind, and tide info.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
                 {spots.map((spot) => (
-                    <SurfCard key={spot.name} title={spot.name} d={data[spot.name]} isLoading={data[spot.name] === undefined} />
+                    <SurfCard
+                        key={spot.name}
+                        title={spot.name}
+                        d={data[spot.name]}
+                        isLoading={data[spot.name] === undefined}
+                    />
                 ))}
             </div>
             <p className="mt-10 text-center text-sm text-foreground/50">Data: Open-Meteo Marine + Open-Meteo Weather.</p>
@@ -96,16 +103,25 @@ function SurfCard({ title, d, isLoading }: { title: string; d: SurfData | null |
     const wavePeriod = d?.wave_period ?? null;
     const windSpeed = d?.wind_speed ?? null;
     const windDirection = d?.wind_direction ?? null;
+    const tz = d?.timezone ?? null;
+    const localNow = fmtHuman(tz);
 
     return (
-        <article className={cn('h-full flex flex-col rounded-2xl border border-white/10 bg-background/40 backdrop-blur-sm p-5 sm:p-6 transition-all')} tabIndex={0}>
+        <article
+            className={cn(
+                'h-full flex flex-col rounded-2xl border border-white/10 bg-background/40 backdrop-blur-sm p-5 sm:p-6 transition-all'
+            )}
+            tabIndex={0}
+        >
             <div className="flex items-center gap-3">
                 <div className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-background/60">
                     <Waves className="h-5 w-5" />
                 </div>
                 <div className="min-w-0">
                     <h3 className="text-lg sm:text-xl font-semibold leading-snug">{title}</h3>
-                    <p className="text-sm text-[var(--brand-name)] font-medium mt-0.5">Live forecast</p>
+                    <p className="text-sm text-[var(--brand-name)] font-medium mt-0.5">
+                        Live forecast • {localNow}
+                    </p>
                 </div>
             </div>
 
@@ -122,7 +138,12 @@ function SurfCard({ title, d, isLoading }: { title: string; d: SurfData | null |
                         <Stat label="Wave Height" value={formatOrNA(waveHeight, 'm')} icon={<Waves className="h-4 w-4" />} />
                         <Stat label="Wave Period" value={formatOrNA(wavePeriod, 's')} icon={<Compass className="h-4 w-4" />} />
                         <WindBlock windSpeed={windSpeed} windDirection={windDirection} />
-                        <TideBlock now={d?.sea_level_now ?? null} series={d?.sea_level_series ?? null} times={d?.sea_level_times ?? null} />
+                        <TideBlock
+                            now={d?.sea_level_now ?? null}
+                            series={d?.sea_level_series ?? null}
+                            times={d?.sea_level_times ?? null}
+                            timezone={tz}
+                        />
                     </>
                 )}
             </div>
@@ -157,27 +178,33 @@ function WindBlock({ windSpeed, windDirection }: { windSpeed: number | null; win
     );
 }
 
+const CIRCLE_R = 4;
+const LABEL_PAD = 12; // space between circle and text
+const LINE_GAP = "1.1em"; // vertical gap between lines
+
 function TideBlock({
     now,
     series,
     times,
+    timezone,
 }: {
     now: number | null;
     series: number[] | null;
-    times: string[] | null;
+    times: number[] | null;
+    timezone: string | null;
 }) {
     const points = useMemo(() => {
         if (!series || !times || series.length !== times.length) return null;
-        return series.map((y, i) => ({ t: new Date(times[i]), y, i }));
+        return series.map((y, i) => ({ t: times[i], y, i }));
     }, [series, times]);
 
     const windowed = useMemo(() => {
         if (!points) return null;
-        const nowMs = Date.now();
+        const nowSec = Math.floor(Date.now() / 1000);
         let nowIdx = 0;
         let best = Infinity;
         for (let i = 0; i < points.length; i++) {
-            const d = Math.abs(points[i].t.getTime() - nowMs);
+            const d = Math.abs(points[i].t - nowSec);
             if (d < best) {
                 best = d;
                 nowIdx = i;
@@ -189,8 +216,8 @@ function TideBlock({
             if (c > p && c > n) extrema.push({ i, type: 'high' });
             if (c < p && c < n) extrema.push({ i, type: 'low' });
         }
-        const prev = [...extrema].reverse().find((e) => e.i < nowIdx) ?? { i: Math.max(0, nowIdx - 6), type: 'low' };
-        const next = extrema.find((e) => e.i > nowIdx) ?? { i: Math.min(points.length - 1, nowIdx + 6), type: 'low' };
+        const prev = [...extrema].reverse().find((e) => e.i < nowIdx) ?? { i: Math.max(0, nowIdx - 6), type: 'low' as const };
+        const next = extrema.find((e) => e.i > nowIdx) ?? { i: Math.min(points.length - 1, nowIdx + 6), type: 'low' as const };
         const start = Math.max(0, prev.i);
         const end = Math.min(points.length - 1, next.i);
         const slice = points.slice(start, end + 1);
@@ -245,8 +272,13 @@ function TideBlock({
             : null;
 
     const textY = (v: number) => Math.max(12, chart.y(v) - 8);
-    const formatTime = (d: Date) =>
-        d.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' }).toLowerCase();
+    const fmtTime = (sec: number, tz?: string | null) =>
+        new Intl.DateTimeFormat(undefined, {
+            timeZone: tz || undefined,
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: false,
+        }).format(new Date(sec * 1000)).toLowerCase();
 
     return (
         <div className="rounded-2xl border border-white/10 bg-background/60 p-4 overflow-visible">
@@ -269,25 +301,46 @@ function TideBlock({
                     <path d={chart.d} fill="none" stroke="currentColor" strokeWidth="2" className="opacity-80" />
 
                     <g>
-                        <circle cx={chart.x(prevLabel.idx)} cy={chart.y(prevLabel.y)} r={4} fill="currentColor" />
-                        <text x={chart.x(prevLabel.idx) + 8} y={textY(prevLabel.y)} fontSize="11" className="fill-current">
-                            {formatTime(prevLabel.t)} {prevLabel.y.toFixed(1)}m
+                        <circle cx={chart.x(prevLabel.idx)} cy={chart.y(prevLabel.y)} r={CIRCLE_R} fill="currentColor" />
+                        <text
+                            x={chart.x(prevLabel.idx) + 8}
+                            y={textY(prevLabel.y) - (CIRCLE_R + LABEL_PAD)}
+                            fontSize="11"
+                            className="fill-current"
+                        >
+                            <tspan x={chart.x(prevLabel.idx) + 8}>{fmtTime(prevLabel.t, timezone)}</tspan>
+                            <tspan x={chart.x(prevLabel.idx) + 8} dy={LINE_GAP}>{prevLabel.y.toFixed(1)}m</tspan>
+                        </text>
+                    </g>
+
+                    <g className='text-[var(--brand-name)]'>
+                        <circle cx={chart.x(nowIdxRel)} cy={chart.y(nowPt.y)} r={CIRCLE_R} fill="currentColor" />
+                        <text
+                            x={chart.x(nowIdxRel)}
+                            y={textY(nowPt.y) - (CIRCLE_R + LABEL_PAD)}
+                            fontSize="11"
+                            className="fill-current"
+                            textAnchor="middle"
+                        >
+                            <tspan x={chart.x(nowIdxRel)}>now</tspan>
+                            <tspan x={chart.x(nowIdxRel)} dy={LINE_GAP}>{nowPt.y.toFixed(1)}m</tspan>
                         </text>
                     </g>
 
                     <g>
-                        <circle cx={chart.x(nowIdxRel)} cy={chart.y(nowPt.y)} r={4} fill="currentColor" />
-                        <text x={chart.x(nowIdxRel)} y={textY(nowPt.y)} fontSize="11" className="fill-current" textAnchor="middle">
-                            now {nowPt.y.toFixed(1)}m
+                        <circle cx={chart.x(nextLabel.idx)} cy={chart.y(nextLabel.y)} r={CIRCLE_R} fill="currentColor" />
+                        <text
+                            x={chart.x(nextLabel.idx) - 8}
+                            y={textY(nextLabel.y) - (CIRCLE_R + LABEL_PAD)}
+                            fontSize="11"
+                            className="fill-current"
+                            textAnchor="end"
+                        >
+                            <tspan x={chart.x(nextLabel.idx) - 8}>{fmtTime(nextLabel.t, timezone)}</tspan>
+                            <tspan x={chart.x(nextLabel.idx) - 8} dy={LINE_GAP}>{nextLabel.y.toFixed(1)}m</tspan>
                         </text>
                     </g>
 
-                    <g>
-                        <circle cx={chart.x(nextLabel.idx)} cy={chart.y(nextLabel.y)} r={4} fill="currentColor" />
-                        <text x={chart.x(nextLabel.idx) - 8} y={textY(nextLabel.y)} fontSize="11" className="fill-current" textAnchor="end">
-                            {formatTime(nextLabel.t)} {nextLabel.y.toFixed(1)}m
-                        </text>
-                    </g>
                 </svg>
             </div>
         </div>
@@ -319,3 +372,20 @@ function degToCompass(deg: number | null | undefined): string {
     const i = Math.round((deg % 360) / 22.5) % 16;
     return dirs[i];
 }
+
+
+const fmtHuman = (tz: string | null) => {
+    const d = new Date();
+    const parts = new Intl.DateTimeFormat(undefined, {
+        timeZone: tz || undefined,
+        weekday: 'short',
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+    }).formatToParts(d);
+    const get = (t: Intl.DateTimeFormatPartTypes) => parts.find(p => p.type === t)?.value ?? '';
+    return `${get('weekday')}, ${get('day')} ${get('month')} ${get('year')} • ${get('hour')}:${get('minute')}`;
+};
