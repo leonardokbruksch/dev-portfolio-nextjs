@@ -1,0 +1,19 @@
+{
+    "entry": [
+        "next.config.js",
+        "app/**/*.{ts,tsx}",
+        "pages/**/*.{ts,tsx}"
+    ],
+    "project": [
+        "**/*.{ts,tsx}"
+    ],
+    "ignore": [
+        "**/*.test.*",
+        "**/*.spec.*",
+        "**/*.stories.*"
+    ],
+    "ignoreDependencies": [
+        "eslint",
+        "prettier"
+    ]
+}
