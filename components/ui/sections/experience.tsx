@@ -80,7 +80,7 @@ const EXPERIENCES: Experience[] = [
         company: "V-DAQ",
         role: "Full Stack Developer",
         location: "Wollongong, Australia",
-        period: "Nov 2023 – Sep 2025",
+        period: "Oct 2023 – Nov 2025",
         summary:
             "Architected backend and front-end for IoT asset tracking at scale, building event-driven storage and real-time experiences.",
         bullets: [
@@ -115,7 +115,7 @@ const EXPERIENCES: Experience[] = [
         company: "Unitech",
         role: "Full Stack Engineer",
         location: "Wollongong, Australia",
-        period: "Jan 2023 – Nov 2023",
+        period: "Nov 2022 – Oct 2023",
         summary:
             "Built web apps for time management, scheduling, and billing using modern full-stack tooling.",
         bullets: [
@@ -126,9 +126,9 @@ const EXPERIENCES: Experience[] = [
     },
     {
         company: undefined,
-        role: "Digital Product Entrepreneur",
+        role: "E-commerce Business Manager",
         location: "Florianópolis, Brazil",
-        period: "Sep 2018 – Oct 2022",
+        period: "Mar 2019 – Oct 2022",
         summary:
             "Launched and operated profitable e-commerce products and services; shipped websites and SaaS integrations.",
         bullets: [
@@ -141,7 +141,7 @@ const EXPERIENCES: Experience[] = [
         company: "SAP Labs",
         role: "Backend Developer",
         location: "São Leopoldo, Brazil",
-        period: "Apr 2015 – Mar 2019",
+        period: "Mar 2015 – Mar 2019",
         summary:
             "Worked on large-scale e-commerce platforms in global teams with clean code and TDD practices.",
         bullets: [
