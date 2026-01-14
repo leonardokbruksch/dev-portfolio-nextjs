@@ -34,7 +34,6 @@ export default function RootLayout({
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange>
-          {/* <Background /> */}
           {children}
         </ThemeProvider>
       </body>

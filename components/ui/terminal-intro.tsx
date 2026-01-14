@@ -1,6 +1,7 @@
 'use client';
 
 import * as React from 'react';
+import { cn } from '@/lib/utils';
 
 type Phase = 'typing' | 'running' | 'done';
 
@@ -72,7 +73,10 @@ export function TerminalIntro({
     if (!visible) return null;
 
     return (
-        <div className={`fixed inset-0 z-[60] flex items-center justify-center bg-background/80 backdrop-blur-sm transition-opacity ${fade ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={cn(
+            'fixed inset-0 z-60 flex items-center justify-center bg-background/80 backdrop-blur-sm transition-opacity',
+            fade ? 'opacity-0' : 'opacity-100'
+        )}>
             <div className="w-[min(880px,92vw)] rounded-2xl border border-border/70 bg-background/90 shadow-2xl">
                 <div className="flex items-center gap-2 px-4 py-3 border-b border-border/60">
                     <span className="h-3 w-3 rounded-full bg-[oklch(0.69_0.21_30)]"></span>
@@ -82,15 +86,15 @@ export function TerminalIntro({
                 </div>
                 <div className="px-5 py-6 sm:px-6 sm:py-7 font-mono text-sm sm:text-[15px] leading-6 text-foreground">
                     <div className="mb-3">
-                        <span className="text-[var(--brand-name)]">➜</span>{' '}
+                        <span className="text-(--brand-name)">➜</span>{' '}
                         <span className="text-foreground/80">{typed}</span>
-                        {phase === 'typing' && <span className="ml-0.5 inline-block h-[1em] w-[0.5ch] translate-y-[1px] bg-foreground/80 animate-[blink_1.1s_steps(1)_infinite]"></span>}
+                        {phase === 'typing' && <span className="ml-0.5 inline-block h-[1em] w-[0.5ch] translate-y-px bg-foreground/80 animate-[blink_1.1s_steps(1)_infinite]"></span>}
                     </div>
                     <div className="space-y-1.5">
                         {lines.map((l, i) => (
                             <div key={`${l}-${i}`} className="flex items-center gap-2">
                                 {i < lines.length - 1 ? (
-                                    <span className="h-3 w-3 animate-[spin_1s_linear_infinite] rounded-full border-2 border-foreground/30 border-t-foreground/80"></span>
+                                    <span className="h-3 w-3 animate-spin rounded-full border-2 border-foreground/30 border-t-foreground/80"></span>
                                 ) : (
                                     <span className="text-emerald-400">✔</span>
                                 )}

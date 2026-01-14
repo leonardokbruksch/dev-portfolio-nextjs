@@ -155,7 +155,7 @@ export function TideBlock({
                         </text>
                     </g>
 
-                    <g className='text-[var(--brand-name)]'>
+                    <g className='text-(--brand-name)'>
                         <circle
                             cx={chart.x(nowIdxRel)}
                             cy={chart.y(nowPt.y)}

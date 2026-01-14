@@ -23,7 +23,7 @@ export function Hero() {
 
                 <h1 className="mt-6 flex items-center justify-center text-4xl sm:text-6xl font-extrabold tracking-tight text-foreground gap-2">
                     <span>Hey, I’m</span>
-                    <span className="text-[var(--brand-name)]">Leo</span>
+                    <span className="text-(--brand-name)">Leo</span>
                     <span
                         aria-hidden
                         className="inline-block select-none align-[0.1em]"

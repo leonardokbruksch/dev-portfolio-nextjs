@@ -120,7 +120,7 @@ function SurfCard({ title, d, isLoading }: { title: string; d: SurfData | null |
                 </div>
                 <div className="min-w-0">
                     <h3 className="text-lg sm:text-xl font-semibold leading-snug">{title}</h3>
-                    <p className="text-sm text-[var(--brand-name)] font-medium mt-0.5">
+                    <p className="text-sm text-(--brand-name) font-medium mt-0.5">
                         Live forecast • {localNow}
                     </p>
                 </div>

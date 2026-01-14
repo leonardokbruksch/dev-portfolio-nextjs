@@ -116,7 +116,7 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
       <header
         ref={combinedRef}
         className={cn(
-          'sticky top-4 z-50 mx-auto w-[95%] max-w-screen-2xl border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 rounded-2xl px-4 md:px-6 py-2 shadow-sm [&_*]:no-underline',
+          'sticky top-4 z-50 mx-auto w-[95%] max-w-screen-2xl border bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 rounded-2xl px-4 md:px-6 py-2 shadow-sm **:no-underline',
           className
         )}
         {...props}
@@ -159,9 +159,9 @@ export const Navbar01 = React.forwardRef<HTMLElement, Navbar01Props>(
               className="flex items-center space-x-2 text-primary hover:text-primary/90 transition-colors cursor-pointer"
             >
               <span className="font-bold text-xl tracking-tight leading-none">
-                <span className="text-[var(--brand-name)]">leobruksch</span>
-                <span className="mx-1 text-[var(--brand-dot)]">.</span>
-                <span className="ml-0.5 text-[var(--brand-underscore)]">_</span>
+                <span className="text-(--brand-name)">leobruksch</span>
+                <span className="mx-1 text-(--brand-dot)">.</span>
+                <span className="ml-0.5 text-(--brand-underscore)">_</span>
               </span>
             </button>
           </div>
